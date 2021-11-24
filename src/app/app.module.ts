@@ -14,9 +14,14 @@ import { MatButtonModule} from '@angular/material/button'
 import { MatSnackBarModule} from '@angular/material/snack-bar'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ClientComponent } from './Components/client/client.component';
+import { NewSaleComponent } from './Components/clientComponents/new-sale/new-sale.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClientComponent,
+    NewSaleComponent
   ],
   imports: [
     BrowserModule,
