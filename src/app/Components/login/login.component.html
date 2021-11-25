@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
             <p>
                 <mat-form-field>
                     <input type="text" formControlName="email" matInput
@@ -15,8 +15,8 @@
                 </mat-form-field>
             </p>
             <div>
-                <button type="submit" mat-raised-button
-                >Iniciar sesión</button>
+                <button type="submit" [disabled]="!loginForm.valid" mat-raised-button
+                >Login</button>
             </div>
     </form>
     </mat-card-content>
