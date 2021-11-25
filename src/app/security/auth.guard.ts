@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate{
 
     canActivate(route: ActivatedRouteSnapshot){
         const user = this.apiAuthClientService.userData;
-        console.log(user);
         if(user){
             return true;
         }

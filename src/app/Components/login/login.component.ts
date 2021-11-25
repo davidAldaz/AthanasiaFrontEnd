@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   login(){
         this.apiAuthClientService.login(this.loginForm.value).subscribe(
             response => {
-                if(response.success === 1){
+                if(response.success){
                     this.router.navigate(["/"]);
                 }
             });

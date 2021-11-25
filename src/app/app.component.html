@@ -8,7 +8,7 @@
       color="primary">Menu</button>
       <div>
         <button mat-raised-button color="primary"
-        [routerLink]="['/login']">
+        *ngIf="!user"  [routerLink]="['/login']">
           Login
         </button>
         <button mat-raised-button color="warn"

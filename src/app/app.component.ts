@@ -18,7 +18,6 @@ export class AppComponent {
   ){
     this.apiAuthClientService.us.subscribe(res => {
       this.user = res;
-      console.log(res);
     });
   }
 

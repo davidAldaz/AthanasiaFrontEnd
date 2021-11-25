@@ -35,7 +35,6 @@ export class ApiAuthClientService {
     return this._http.post<Response>(this.url, login, 
       httpOptions).pipe(
           map(res => {
-            console.log(res.success)
               if(res.success){
                   const user: User = res.data;
                   localStorage.setItem("User", JSON.stringify(user));
