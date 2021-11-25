@@ -1,0 +1,9 @@
+mat-grid-tile {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background: lightblue;
+}
+mat-grid-tile{
+    flex-basis: 100px;
+}

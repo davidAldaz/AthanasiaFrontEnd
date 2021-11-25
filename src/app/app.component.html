@@ -1,12 +1,17 @@
 <mat-drawer-container class="global-content">
   <mat-drawer #drawer mode="side">
-      <a [routerLink]="['/home']">Inicio</a><br>
-      <a [routerLink]="['/cliente']">Cliente</a><br>
-      <a [routerLink]="['/venta']">Venta</a><br>
+      <a [routerLink]="['/home']">Home</a><br>
+      <a [routerLink]="['/newSale']">Products</a><br>
   </mat-drawer>
   <div>
       <button (click)="drawer.toggle();" mat-raised-button 
-      color="primary">Menú</button>
-      <router-outlet></router-outlet>
+      color="primary">Menu</button>
+      <div>
+        <button mat-raised-button color="primary"
+        [routerLink]="['/login']">
+          Login
+        </button>
+      </div>
   </div>
 </mat-drawer-container>
+<router-outlet></router-outlet>

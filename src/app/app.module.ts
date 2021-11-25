@@ -13,15 +13,19 @@ import { MatInputModule} from '@angular/material/input'
 import { MatButtonModule} from '@angular/material/button'
 import { MatSnackBarModule} from '@angular/material/snack-bar'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatToolbarModule} from '@angular/material/toolbar';
 
-import { ClientComponent } from './Components/client/client.component';
 import { NewSaleComponent } from './Components/clientComponents/new-sale/new-sale.component';
+import { HomeComponent } from './Components/home/home.component';
+import { LoginComponent } from './Components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientComponent,
-    NewSaleComponent
+    HomeComponent,
+    NewSaleComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { NewSaleComponent } from './Components/clientComponents/new-sale/new-sal
     MatCardModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
