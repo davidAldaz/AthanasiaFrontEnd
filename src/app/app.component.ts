@@ -11,18 +11,15 @@ import { ApiAuthClientService } from './services/apiAuth/api-auth-client.service
 export class AppComponent {
   title = 'Athanasia';
   user!: User;
+  sideBarOpen = false;
 
   constructor(
-    public apiAuthClientService: ApiAuthClientService,
     private router: Router
   ){
-    this.apiAuthClientService.us.subscribe(res => {
-      this.user = res;
-    });
   }
 
-  logout(){
-    this.apiAuthClientService.logout();
-    this.router.navigate(['/login']);
+  sideBarToggler(){
+    console.log("Sio o que");
+    this.sideBarOpen = !this.sideBarOpen;
   }
 }
