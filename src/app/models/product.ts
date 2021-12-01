@@ -2,6 +2,6 @@ export interface Product{
     id: number;
     name: string;
     genre: string;
-    quantity: string;
+    quantity: number;
     unitPrice: number;
 }

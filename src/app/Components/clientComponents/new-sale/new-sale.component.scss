@@ -1,0 +1,27 @@
+@import "../../home/home.component.scss";
+
+.newSale{
+    width: 100%;
+    display: flex;
+}
+    .details{
+        width: 80%;
+        background-color: blue;
+    }
+        form{
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            background-color: orange;
+        }
+            mat-form-field{
+                height: 50px;
+            }
+        table{
+            width: 100%;
+        }
+    .productsbill{
+        width: 20%;
+        background-color: red;
+    }
