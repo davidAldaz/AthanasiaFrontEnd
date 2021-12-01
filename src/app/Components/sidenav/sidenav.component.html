@@ -8,12 +8,10 @@
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
       <mat-icon>home</mat-icon> Home
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/newSale">
-      <mat-icon>dashboard</mat-icon> Dashboard
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/product-view">
+      <mat-icon>dashboard</mat-icon> Product List
     </a>
-    <a mat-list-item> <mat-icon>edit</mat-icon></a>
-    <a mat-list-item> <mat-icon>edit</mat-icon></a>
-    <a mat-list-item> <mat-icon>edit</mat-icon></a>
-    <a mat-list-item> <mat-icon>edit</mat-icon></a>
+    <a *ngIf="user" mat-list-item routerLink="/new-sale">
+      <mat-icon>shopping_basket</mat-icon>Shopping</a>
 </mat-nav-list>
   

@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
     });
   }
   ngOnInit(): void {}
-
   toggleSidebar() {
     this.toggleSidebarForMe.emit();
   }
@@ -34,6 +33,4 @@ export class HeaderComponent implements OnInit {
     this.userName = "Guest"
     this.router.navigate(['/login']);
   }
-
-
 }
