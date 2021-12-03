@@ -21,14 +21,14 @@ export class NewSaleComponent implements OnInit {
   public saleDetails!: SaleDetail[];
   public user!: User;
   public actualProduct!: Product;
-  public list!: Product[];
+  public list: Product[] = [];
   public tableColumns: string[] = 
   ["Name", "Unit Price", "Add"];
 
   public addProduct = this.formBuilder.group({
-    ProductName: [{value: '', disabled: true}, Validators.required],
-    ProductQuantity: [{value: 0, disabled: true}, Validators.required],
-    ProductTotal: [{value: 0, disabled: true}, Validators.required]
+    'ProductName': [{value: '', disabled: true}, Validators.required],
+    'ProductQuantity': [{value: 0, disabled: true}, Validators.required],
+    'ProductTotal': [{value: 0, disabled: true}, Validators.required]
   })
 
   constructor(
@@ -45,18 +45,20 @@ export class NewSaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
+    
   }
   getProducts(){
     this.apiProduct.get().subscribe( response => {
       this.list = response.data;
+      console.log(this.list);
     })
   }
 
   selectProduct(product: Product){
     this.addProduct = this.formBuilder.group({
-      ProductName: [{value: product.name, disabled: true},  Validators.required],
-      ProductQuantity: [{value: 1, disabled: false},  Validators.required],
-      ProductTotal: [{value: product.unitPrice, disabled: true}, Validators.required]
+      'ProductName': [{value: product.name, disabled: true},  Validators.required],
+      'ProductQuantity': [{value: 1, disabled: false},  Validators.required],
+      'ProductTotal': [{value: product.unitPrice, disabled: true}, Validators.required]
         })
     this.actualProduct = product;
   }
@@ -66,15 +68,27 @@ export class NewSaleComponent implements OnInit {
   addSale(){
 
   }
-  calculateProductTotal(numb: String){
-    this.addProduct = this.formBuilder.group({
-      ProductQuantity:[ numb,
-      [
-        Validators.required,
-        Validators.min(6),
-        Validators.max(20)
-      ]],
-      ProductTotal: [{value: this.actualProduct.unitPrice * Number(numb), disabled: true}, Validators.required]
-    })
+  calculateProductTotal(qty: String){
+    console.log(this.actualProduct.quantity);
+    if(Number(qty) >= 1 && Number(qty) <= this.actualProduct.quantity){
+      this.addProduct = this.formBuilder.group({
+        'ProductQuantity': [qty],
+        'ProductTotal': [{value: this.actualProduct.unitPrice * Number(qty), disabled: true}, Validators.required]
+      });
+    } else{
+      if(Number(qty) === 0){
+        this.addProduct = this.formBuilder.group({
+          'ProductQuantity': [1],
+          'ProductTotal': [{value: this.actualProduct.unitPrice * 1, disabled: true}, Validators.required]
+        });
+      }
+      if(Number(qty) > this.actualProduct.quantity){
+        this.addProduct = this.formBuilder.group({
+          'ProductQuantity': [this.actualProduct.quantity],
+          'ProductTotal': [{value: this.actualProduct.unitPrice * (Number(qty) - 1), disabled: true}, Validators.required]
+        });
+      }
+
+    }
   }
 }
