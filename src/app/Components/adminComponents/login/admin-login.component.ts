@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiAuthClientService } from 'src/app/services/apiAuth/api-auth-client.service';
+import { ApiAuthAdminService } from 'src/app/services/apiAuth/api-auth-admin.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class adminLoginComponent implements OnInit {
 
   public loginForm = this.fb.group({
     email: ['', Validators.required],
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   })
 
   constructor(
-    public apiAuthClientService: ApiAuthClientService,
+    public apiAuthAdminService: ApiAuthAdminService,
     private router: Router,
     private fb: FormBuilder
   ) { }
@@ -24,10 +24,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   login(){
-    this.apiAuthClientService.login(this.loginForm.value).subscribe(
+    this.apiAuthAdminService.login(this.loginForm.value).subscribe(
       response => {
-        if(response.success){
-          this.router.navigate(["/"]);
+          if(response.success){
+              this.router.navigate(["/"]);
           }
       });
   }

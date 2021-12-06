@@ -11,7 +11,9 @@
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/product-view">
       <mat-icon>dashboard</mat-icon> Product List
     </a>
-    <a *ngIf="user" mat-list-item routerLink="/new-sale">
+    <a *ngIf="user && !user.admin" mat-list-item routerLink="/new-sale">
       <mat-icon>shopping_basket</mat-icon>Shopping</a>
+    <a *ngIf="user && user.admin" mat-list-item routerLink="/clients">
+      <mat-icon>face</mat-icon>Clients</a>
 </mat-nav-list>
   

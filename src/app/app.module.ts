@@ -24,21 +24,27 @@ import { MatMenuModule } from '@angular/material/menu';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { JwtInterceptor } from './security/jwt.interceptor';
-import { SidenavComponent } from './Components/sidenav/sidenav.component';
+import { SidenavComponent } from './Components/sidenav/sidenav.component'
 import { HeaderComponent } from './Components/header/header.component';
 import { ProductViewComponent } from './Components/product-view/product-view.component';
 import { NewSaleComponent } from './Components/clientComponents/new-sale/new-sale.component';
+import { SaleCompletedComponent } from './Components/clientComponents/sale-completed/sale-completed.component';
+import { adminLoginComponent } from './Components/adminComponents/login/admin-login.component';
+import { ClientsComponent } from './Components/adminComponents/clients/clients.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
+    adminLoginComponent,
     ProductViewComponent,
     SidenavComponent,
     HeaderComponent,
     ProductViewComponent,
-    NewSaleComponent
+    NewSaleComponent,
+    SaleCompletedComponent,
+    ClientsComponent
   ],
   imports: [
     MatDividerModule,

@@ -19,7 +19,6 @@ export class AppComponent {
   }
 
   sideBarToggler(){
-    console.log("Sio o que");
     this.sideBarOpen = !this.sideBarOpen;
   }
 }

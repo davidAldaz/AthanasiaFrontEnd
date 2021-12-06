@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router } from "@angular/router";
+import { ApiAuthAdminService } from "../services/apiAuth/api-auth-admin.service";
 import { ApiAuthClientService } from "../services/apiAuth/api-auth-client.service";
 
 
@@ -9,12 +10,14 @@ import { ApiAuthClientService } from "../services/apiAuth/api-auth-client.servic
 export class AuthGuard implements CanActivate{
     constructor(
         private router: Router,
-        private apiAuthClientService: ApiAuthClientService
+        private apiAuthClientService: ApiAuthClientService,
+        private apiAuthAdminService: ApiAuthAdminService
     ){}
 
     canActivate(route: ActivatedRouteSnapshot){
         const user = this.apiAuthClientService.userData;
-        if(user){
+        const userAdmin = this.apiAuthAdminService.userData;
+        if(user || userAdmin){
             return true;
         }
         this.router.navigate(['./login']);

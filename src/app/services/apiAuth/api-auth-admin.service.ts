@@ -13,8 +13,8 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class ApiAuthClientService {
-  url: string = "http://localhost:5295/api/userClient/login";
+export class ApiAuthAdminService {
+  url: string = "http://localhost:5295/api/userAdmin/login";
   private userSubject!: BehaviorSubject<User>;
   public us!: Observable<User>;
   public get userData(): User{
@@ -27,6 +27,7 @@ export class ApiAuthClientService {
       JSON.parse(localStorage.getItem("User")!)
     );
     this.us = this.userSubject.asObservable();
+    console.log(this.us);
   }
 
   login(login: Login): Observable<Response>{
@@ -35,7 +36,7 @@ export class ApiAuthClientService {
           map(res => {
               if(res.success){
                   const user: User = res.data;
-                  user.admin = false;
+                  user.admin = true;
                   localStorage.setItem("User", JSON.stringify(user));
                   this.userSubject.next(user);
               }
