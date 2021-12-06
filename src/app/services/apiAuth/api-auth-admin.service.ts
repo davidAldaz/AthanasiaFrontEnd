@@ -27,7 +27,6 @@ export class ApiAuthAdminService {
       JSON.parse(localStorage.getItem("User")!)
     );
     this.us = this.userSubject.asObservable();
-    console.log(this.us);
   }
 
   login(login: Login): Observable<Response>{

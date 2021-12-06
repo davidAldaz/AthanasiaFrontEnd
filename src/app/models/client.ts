@@ -1,6 +1,8 @@
 export interface Client{
-    ID: number;
-    Name: string;
-    Email: string;
-    Cedula: string;
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+    cedula: string;
+    sales: any[];
 }
