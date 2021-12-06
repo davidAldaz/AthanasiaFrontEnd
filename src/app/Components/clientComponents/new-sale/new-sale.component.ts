@@ -103,9 +103,11 @@ calculateProductTotal(qty: String){
   addSaleDetail(qty: String){
     if(!this.checkIfSaleDetailRepeats(Number(qty))){
       saleDetails.push({IDProduct: this.actualProduct.id, Quantity: Number(qty)});
-      saleDetailsBill.push({ID: this.actualProduct.id, Name: this.actualProduct.name, Quantity: Number(qty), Subtotal: this.actualProduct.unitPrice * Number(qty)})
+      saleDetailsBill.push({ID: this.actualProduct.id, Name: this.actualProduct.name, 
+        Quantity: Number(qty), Subtotal: this.actualProduct.unitPrice * Number(qty)})
     }
     this.updateBillTable();
+    console.log(saleDetailsBill);
   }
   removeSaleDetail(productRemoved: SaleDetailBill){
     var cont: number = 0;
@@ -123,8 +125,10 @@ calculateProductTotal(qty: String){
     var result = false;
       saleDetailsBill.forEach(element => {
         if(element.ID === this.actualProduct.id){
-          element.Quantity += qty;
-          element.Subtotal += this.actualProduct.unitPrice * qty;
+          if(this.checkProductQtyBill(qty, element)){
+            element.Quantity += qty;
+            element.Subtotal += this.actualProduct.unitPrice * qty
+        }
           result = true;
         }
       });
@@ -136,6 +140,13 @@ calculateProductTotal(qty: String){
         });
       }
       return result;
+  }
+  checkProductQtyBill(qty: number, saleDetail: SaleDetailBill): boolean{
+    var result = true;
+          if((saleDetail.Quantity + qty) > this.actualProduct.quantity){
+            result = false;
+          }
+    return result;
   }
   updateBillTable(){
     this.saleDetailsTable = [...saleDetailsBill];
@@ -153,8 +164,8 @@ calculateProductTotal(qty: String){
           }
       });
   }
-//#endregion 
   getTotal(){
     return saleDetailsBill.map(t => t.Subtotal).reduce((acc, value) => acc + value, 0);
   }
+  //#endregion 
 }
