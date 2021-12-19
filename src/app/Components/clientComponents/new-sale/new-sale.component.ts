@@ -1,4 +1,4 @@
-//#region Imports&Component
+//#region Imports,Var&Component
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/product';
@@ -11,6 +11,9 @@ import { ApiProductService } from 'src/app/services/apiProducts/api-product.serv
 import { ApiSaleService } from 'src/app/services/apiSale/api-sale.service';
 import { Response } from 'src/app/models/response';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogClientsComponent } from './dialogClients/dialogClients.component';
+import { DialogProductsComponent } from './dialogProducts/dialogProducts.component';
 
 var newSale: Sale;
 var saleDetails: SaleDetail[] = [];
@@ -23,15 +26,11 @@ var saleDetailsBill: SaleDetailBill[] = [];
 })
 //#endregion
 export class NewSaleComponent implements OnInit {
-  
+  //#region Variables  
   public user!: User;
   public actualProduct!: Product;
-  public filterList: Product[] = [];
   public saleDetailsTable: SaleDetailBill[] = [];
-  public productList: Product[] = [];
 
-  public tableProductsColumns: string[] = 
-  ["Name", "Unit Price", "Add"];
   public tableBillColumns: string[] = 
   ["Name", "Qty.", "Subtotal", "Options"];
 
@@ -40,66 +39,72 @@ export class NewSaleComponent implements OnInit {
     'ProductQuantity': [{value: 0, disabled: true}, Validators.required],
     'ProductTotal': [{value: 0, disabled: true}, Validators.required]
   })
-
+  //#endregion
+  //#region Constructor&OnInit
   constructor(
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private apiProduct: ApiProductService,
     private apiAuthClientService: ApiAuthClientService,
     private apiSale: ApiSaleService,
-    private router: Router
+    private router: Router,
   ) { 
     this.apiAuthClientService.us.subscribe(res => {
       this.user = res;
     });
   }
-
   ngOnInit(): void {
-    this.getProducts();
     this.updateBillTable();
   }
-  getProducts(){
-    this.apiProduct.get().subscribe( response => {
-      response.data.forEach((element: Product) => {
-        if(element.quantity != 0){
-
-          this.productList.push(element);
-        }
-      });         
-        this.filterList = this.productList;
+  //#endregion
+  //#region openDialog
+  openClientDialog(){
+    const dialogRef = this.dialog.open(DialogClientsComponent, {
+      width: "2000px"
+    });
+  }
+  openProductDialog(){
+    const dialogRef = this.dialog.open(DialogProductsComponent, {
+      width: "2000px"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.selectProduct(result.data);
+      }
     })
   }
-//#region Product Selected
-selectProduct(product: Product){
-  this.addProduct = this.formBuilder.group({
-    'ProductName': [{value: product.name, disabled: true},  Validators.required],
-    'ProductQuantity': [{value: 1, disabled: false},  Validators.required],
-    'ProductTotal': [{value: product.unitPrice, disabled: true}, Validators.required]
-      })
-  this.actualProduct = product;
-}
-calculateProductTotal(qty: String){
-  if(Number(qty) >= 1 && Number(qty) <= this.actualProduct.quantity){
+  //#endregion
+  //#region Product Selected
+  selectProduct(product: Product){
     this.addProduct = this.formBuilder.group({
-      'ProductQuantity': [qty],
-      'ProductTotal': [{value: this.actualProduct.unitPrice * Number(qty), disabled: true}, Validators.required]
-    });
-  } else{
-    if(Number(qty) === 0){
+      'ProductName': [{value: product.name, disabled: true},  Validators.required],
+      'ProductQuantity': [{value: 1, disabled: false},  Validators.required],
+      'ProductTotal': [{value: product.unitPrice, disabled: true}, Validators.required]
+        })
+    this.actualProduct = product;
+  }
+  calculateProductTotal(qty: String){
+    if(Number(qty) >= 1 && Number(qty) <= this.actualProduct.quantity){
       this.addProduct = this.formBuilder.group({
-        'ProductQuantity': [1],
-        'ProductTotal': [{value: this.actualProduct.unitPrice * 1, disabled: true}, Validators.required]
+        'ProductQuantity': [qty],
+        'ProductTotal': [{value: this.actualProduct.unitPrice * Number(qty), disabled: true}, Validators.required]
       });
-    }
-    if(Number(qty) > this.actualProduct.quantity){
-      this.addProduct = this.formBuilder.group({
-        'ProductQuantity': [this.actualProduct.quantity],
-        'ProductTotal': [{value: this.actualProduct.unitPrice * this.actualProduct.quantity, disabled: true}, Validators.required]
-      });
+    } else{
+      if(Number(qty) === 0){
+        this.addProduct = this.formBuilder.group({
+          'ProductQuantity': [1],
+          'ProductTotal': [{value: this.actualProduct.unitPrice * 1, disabled: true}, Validators.required]
+        });
+      }
+      if(Number(qty) > this.actualProduct.quantity){
+        this.addProduct = this.formBuilder.group({
+          'ProductQuantity': [this.actualProduct.quantity],
+          'ProductTotal': [{value: this.actualProduct.unitPrice * this.actualProduct.quantity, disabled: true}, Validators.required]
+        });
+      }
     }
   }
-}
-//#endregion
-//#region Bill
+  //#endregion
+  //#region Bill
   addSaleDetail(qty: String){
     if(!this.checkIfSaleDetailRepeats(Number(qty))){
       saleDetails.push({IDProduct: this.actualProduct.id, Quantity: Number(qty)});

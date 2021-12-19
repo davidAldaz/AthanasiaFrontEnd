@@ -31,6 +31,10 @@ import { NewSaleComponent } from './Components/clientComponents/new-sale/new-sal
 import { SaleCompletedComponent } from './Components/clientComponents/sale-completed/sale-completed.component';
 import { adminLoginComponent } from './Components/adminComponents/login/admin-login.component';
 import { ClientsComponent } from './Components/adminComponents/clients/clients.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogClientsComponent } from './Components/clientComponents/new-sale/dialogClients/dialogClients.component';
+import { DialogProductsComponent } from './Components/clientComponents/new-sale/dialogProducts/dialogProducts.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -44,13 +48,16 @@ import { ClientsComponent } from './Components/adminComponents/clients/clients.c
     ProductViewComponent,
     NewSaleComponent,
     SaleCompletedComponent,
-    ClientsComponent
+    ClientsComponent,
+    DialogClientsComponent,
+    DialogProductsComponent
   ],
   imports: [
     MatDividerModule,
     MatIconModule,
     MatListModule,
     MatMenuModule,
+    MatDialogModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -62,7 +69,8 @@ import { ClientsComponent } from './Components/adminComponents/clients/clients.c
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatPaginatorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor,
