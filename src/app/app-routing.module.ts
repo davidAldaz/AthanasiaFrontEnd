@@ -7,6 +7,7 @@ import { SaleCompletedComponent } from './Components/clientComponents/sale-compl
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ProductViewComponent } from './Components/product-view/product-view.component';
+import { SalesViewComponent } from './Components/sales-view/sales-view.component';
 import { AuthGuard } from './security/auth.guard';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent},
   { path: 'product-view', component: ProductViewComponent},
+  { path: 'sales-view', component: SalesViewComponent},
   { path: 'new-sale', component: NewSaleComponent, canActivate: [AuthGuard]},
   { path: 'adminLogin', component: adminLoginComponent},
   { path: 'sale-completed', component: SaleCompletedComponent, canActivate: [AuthGuard]},

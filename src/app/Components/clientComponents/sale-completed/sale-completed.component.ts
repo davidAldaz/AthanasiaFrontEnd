@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Sale } from 'src/app/models/sale';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-sale-completed',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SaleCompletedComponent implements OnInit {
 
-  constructor() { }
+  sale!: Sale;
+  subscription!: Subscription;
+  constructor(private data: DataService) { }
 
   ngOnInit(): void {
+    this.subscription = this.data.currentLastSale.subscribe(message => this.sale = message)
+    console.log(this.sale);
   }
-
 }

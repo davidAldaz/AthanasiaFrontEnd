@@ -24,4 +24,7 @@ export class ApiProductService {
   get(): Observable<Response>{
     return this._http.get<Response>(this.url, httpOptions);
   }
+  getSpecifiedProduct(id: number): Observable<Response>{
+    return this._http.get<Response>(this.url + "/" + id, httpOptions)
+  }
 }

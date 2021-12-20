@@ -9,7 +9,8 @@ import { Product } from "src/app/models/product";
 import { ApiProductService } from "src/app/services/apiProducts/api-product.service";
 //#endregion
 @Component({
-    templateUrl: "./dialogProducts.component.html"
+    templateUrl: "./dialogProducts.component.html",
+    styleUrls: ["./dialogProducts.component.scss"]
 })
 export class DialogProductsComponent implements OnInit {
 

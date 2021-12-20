@@ -10,13 +10,14 @@ import { ApiClientsService } from "src/app/services/apiClients/api-clients.servi
 //#endregion
 
 @Component({
-    templateUrl: "./dialogClients.component.html"
+    templateUrl: "./dialogClients.component.html",
+    styleUrls: ["./dialogClients.component.scss"]
 })
 export class DialogClientsComponent implements OnInit{
 
-    public list!: Client[];
+    public list: Client[] = [];
     public tableColumns: string[] = 
-    ["ID", "Name", "Email", "Cedula"]
+    ["ID", "Name", "Email", "Cedula", "Select"]
     public dataSource!: MatTableDataSource<Client>;
     @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;   
 
@@ -36,8 +37,11 @@ export class DialogClientsComponent implements OnInit{
 
     getClients(){
         this.apiClients.get().subscribe( response => {
-            console.log(response);
-            this.list = response.data;
+            response.data.forEach((element: Client) => {
+                if(element.id != 1){
+                  this.list.push(element);
+                }
+              });
             this.dataSource = new MatTableDataSource(this.list);
             this.dataSource.paginator = this.paginator;  
           })
@@ -49,5 +53,8 @@ export class DialogClientsComponent implements OnInit{
         if (this.dataSource.paginator) {
           this.dataSource.paginator.firstPage();
         }
-      }
+    }
+    selectClient(clientSelected: Client){
+        this.dialogRef.close({data: clientSelected})
+    }
 }

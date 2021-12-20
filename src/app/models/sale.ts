@@ -1,6 +1,9 @@
 import { SaleDetail } from './saleDetail';
 
 export interface Sale{
-    IDUserClient: number;
+    id?: number;
+    iduserClient: number;
+    date?: Date;
+    total?: number;
     saleDetails: SaleDetail[];
 }

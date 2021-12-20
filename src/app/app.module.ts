@@ -35,6 +35,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogClientsComponent } from './Components/clientComponents/new-sale/dialogClients/dialogClients.component';
 import { DialogProductsComponent } from './Components/clientComponents/new-sale/dialogProducts/dialogProducts.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { DialogSaleConfirmation } from './Components/clientComponents/new-sale/dialogSaleConfirmation/dialogSaleConfirmation.component';
+import { SalesViewComponent } from './Components/sales-view/sales-view.component';
+import { DialogSaleComponent } from './Components/sales-view/dialogSale/dialogSale.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     SaleCompletedComponent,
     ClientsComponent,
     DialogClientsComponent,
-    DialogProductsComponent
+    DialogProductsComponent,
+    DialogSaleConfirmation,
+    SalesViewComponent,
+    DialogSaleComponent
   ],
   imports: [
     MatDividerModule,
@@ -70,7 +76,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     ReactiveFormsModule,
     MatToolbarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor,

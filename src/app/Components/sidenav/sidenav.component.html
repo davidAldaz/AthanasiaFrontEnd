@@ -9,11 +9,13 @@
       <mat-icon>home</mat-icon> Home
     </a>
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/product-view">
-      <mat-icon>dashboard</mat-icon> Product List
+      <mat-icon>dashboard</mat-icon> Products
     </a>
     <a *ngIf="user && !user.admin" mat-list-item routerLink="/new-sale">
-      <mat-icon>shopping_basket</mat-icon>Shopping</a>
+      <mat-icon>fact_check</mat-icon>New Bill</a>
     <a *ngIf="user && user.admin" mat-list-item routerLink="/clients">
       <mat-icon>face</mat-icon>Clients</a>
+    <a *ngIf="user && !user.admin" mat-list-item routerLink="/sales-view">
+      <mat-icon>point_of_sale</mat-icon>Sales</a>
 </mat-nav-list>
   
