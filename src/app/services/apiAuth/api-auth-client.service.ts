@@ -4,6 +4,8 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Login } from 'src/app/models/login';
 import { Response } from 'src/app/models/response';
 import { User } from 'src/app/models/user';
+import { ActualUser } from 'src/app/resources/ActualUser';
+import { AthURL } from 'src/app/resources/AthURL';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,9 +16,10 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiAuthClientService {
-  url: string = "http://localhost:5295/api/userClient/login";
+  url: string = AthURL.USER_LOGIN;
   private userSubject!: BehaviorSubject<User>;
   public us!: Observable<User>;
+  a!: User;
   public get userData(): User{
     return this.userSubject.value;
   }
@@ -46,5 +49,6 @@ export class ApiAuthClientService {
   logout(){
     localStorage.removeItem("User");
     this.userSubject.next(null!);
+    ActualUser.User = this.a;
   }
 }

@@ -1,6 +1,5 @@
 //#region Imports
 import { Component, OnInit, ViewChild } from "@angular/core";
-
 import { MatDialogRef } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
@@ -15,11 +14,11 @@ import { ApiProductService } from "src/app/services/apiProducts/api-product.serv
 export class DialogProductsComponent implements OnInit {
 
   public tableProductsColumns: string[] = 
-  ["ID", "Name", "Unit Price", "Genre", "Add"];
+  ["ID", "Name", "Genre", "Quantity", "Unit Price", "Add"];
   public productList: Product[] = [];
   public filterList: Product[] = [];
-  public dataSource!: MatTableDataSource<Product>;
 
+  public dataSource!: MatTableDataSource<Product>;
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;   
 
   constructor(
@@ -31,7 +30,6 @@ export class DialogProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
   }
-
   close(){
     this.dialogRef.close();
   }
@@ -48,7 +46,6 @@ export class DialogProductsComponent implements OnInit {
         this.dataSource.paginator = this.paginator;  
     })
   }
-
   searchProduct(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

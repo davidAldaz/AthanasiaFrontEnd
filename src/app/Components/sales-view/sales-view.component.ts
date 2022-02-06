@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Sale } from 'src/app/models/sale';
+import { ActualUser } from 'src/app/resources/ActualUser';
 import { ApiSaleService } from 'src/app/services/apiSale/api-sale.service';
 import { DialogSaleComponent } from './dialogSale/dialogSale.component';
 
@@ -15,6 +18,9 @@ export class SalesViewComponent implements OnInit {
   public tableColumns: string[] = 
   ["ID", "Date", "IDUserClient", "Total", "Select"]
 
+  public dataSource!: MatTableDataSource<Sale>;
+  @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;   
+
   constructor(private apiSales: ApiSaleService,
     private dialog: MatDialog,
     ) { }
@@ -24,11 +30,20 @@ export class SalesViewComponent implements OnInit {
   }
 
   getSales(){
-    this.apiSales.get().subscribe( response => {
-      this.list = response.data;
-    })
+    if(ActualUser.User.admin){
+      this.apiSales.get().subscribe( response => {
+        this.list = response.data;
+        this.dataSource = new MatTableDataSource(this.list);
+        this.dataSource.paginator = this.paginator;  
+      })
+    } else {
+      this.apiSales.getByUserID(ActualUser.User.id).subscribe( response => {
+        this.list = response.data;
+        this.dataSource = new MatTableDataSource(this.list);
+        this.dataSource.paginator = this.paginator;  
+      })
+    }
   }
-
   selectSale(selectedSale: Sale){
     const dialogRef = this.dialog.open(DialogSaleComponent, {
       width: "600px",
@@ -36,8 +51,13 @@ export class SalesViewComponent implements OnInit {
         sale: selectedSale
       }
     });
-
   }
-
+  searchSales(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
 }

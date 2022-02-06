@@ -6,11 +6,7 @@ import { ApiAuthClientService } from "../services/apiAuth/api-auth-client.servic
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor{
 
-    constructor(
-        private apiAuthService: ApiAuthClientService
-    ){
-
-    }
+    constructor( private apiAuthService: ApiAuthClientService ){ }
 
     intercept(request: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>>{

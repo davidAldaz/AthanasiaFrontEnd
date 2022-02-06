@@ -3,19 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Response } from 'src/app/models/response';
+import { AthURL } from 'src/app/resources/AthURL';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Contend-Type': 'application/jason'
   })
 };
-
 @Injectable({
   providedIn: 'root'
 })
 export class ApiProductService {
 
-  url: string = "http://localhost:5295/api/product"
+  url: string = AthURL.PRODUCT;
 
   constructor(
     private _http: HttpClient
@@ -25,6 +25,7 @@ export class ApiProductService {
     return this._http.get<Response>(this.url, httpOptions);
   }
   getSpecifiedProduct(id: number): Observable<Response>{
+    console.log(this.url + "/" + id);
     return this._http.get<Response>(this.url + "/" + id, httpOptions)
   }
 }

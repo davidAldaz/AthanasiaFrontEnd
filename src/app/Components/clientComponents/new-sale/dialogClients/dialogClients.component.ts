@@ -1,6 +1,5 @@
 //#region Imports
 import { Component, OnInit, ViewChild } from "@angular/core";
-
 import { MatDialogRef } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
@@ -8,7 +7,6 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Client } from "src/app/models/client";
 import { ApiClientsService } from "src/app/services/apiClients/api-clients.service";
 //#endregion
-
 @Component({
     templateUrl: "./dialogClients.component.html",
     styleUrls: ["./dialogClients.component.scss"]
@@ -46,7 +44,6 @@ export class DialogClientsComponent implements OnInit{
             this.dataSource.paginator = this.paginator;  
           })
     }
-
     searchClient(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();

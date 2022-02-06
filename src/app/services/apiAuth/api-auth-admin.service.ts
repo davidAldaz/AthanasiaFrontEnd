@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Login } from 'src/app/models/login';
 import { Response } from 'src/app/models/response';
 import { User } from 'src/app/models/user';
+import { AthURL } from 'src/app/resources/AthURL';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiAuthAdminService {
-  url: string = "http://localhost:5295/api/userAdmin/login";
+  url: string = AthURL.ADMIN_LOGIN;
   private userSubject!: BehaviorSubject<User>;
   public us!: Observable<User>;
   public get userData(): User{

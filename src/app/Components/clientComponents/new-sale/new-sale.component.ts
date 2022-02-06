@@ -88,7 +88,7 @@ export class NewSaleComponent implements OnInit {
   }
   openProductDialog(){
     const dialogRef = this.dialog.open(DialogProductsComponent, {
-      width: "600px"
+      width: "650px"
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -184,16 +184,16 @@ export class NewSaleComponent implements OnInit {
     var result = false;
       saleDetailsBill.forEach(element => {
         if(element.ID === this.actualProduct.id){
+          result = true;
           if(this.checkProductQtyBill(qty, element)){
             element.Quantity += qty;
             element.Subtotal += this.actualProduct.unitPrice * qty
         }
-          result = true;
         }
       });
       if(result){
         saleDetails.forEach(element => {
-          if(element.IDProduct === this.actualProduct.id){
+          if(element.IDProduct === this.actualProduct.id && element.Quantity + qty <= this.actualProduct.quantity){
             element.Quantity += qty;
           }
         });
@@ -208,7 +208,9 @@ export class NewSaleComponent implements OnInit {
     return result;
   }
   updateBillTable(){
+    this.saleDetailsTable.reverse();
     this.saleDetailsTable = [...saleDetailsBill];
+    this.saleDetailsTable.reverse();
   }
   addSale(){
     newSale = { iduserClient: this.actualClient.id, saleDetails: saleDetails};
@@ -220,7 +222,10 @@ export class NewSaleComponent implements OnInit {
             saleDetails = [];
             this.updateBillTable();
             this.data.sendSale(newSale);
+            console.log("Kebab");
+            console.log(newSale);
             this.router.navigate(["/sale-completed"]);
+          } else{
           }
       });
   }

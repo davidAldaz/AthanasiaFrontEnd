@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ActualUser } from 'src/app/resources/ActualUser';
 import { ApiAuthAdminService } from 'src/app/services/apiAuth/api-auth-admin.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class adminLoginComponent implements OnInit {
     this.apiAuthAdminService.login(this.loginForm.value).subscribe(
       response => {
           if(response.success){
-              this.router.navigate(["/"]);
+              this.router.navigate(["/home"]);
+              location.reload();
           }
       });
   }

@@ -10,6 +10,9 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ApiSaleDetailsService } from "src/app/services/apiSaleDetails/api-sale-details.service";
 import { SaleDetails } from "src/app/models/saleDetails";
 import { Product } from "src/app/models/product";
+import { FormBuilder, Validators } from "@angular/forms";
+import { ApiClientsService } from "src/app/services/apiClients/api-clients.service";
+import { Client } from "src/app/models/client";
 //#endregion
 
 @Component({
@@ -20,6 +23,7 @@ export class DialogSaleComponent implements OnInit{
 
     public detailsList: SaleDetails[] = [];
     public list: SaleDetailBill[] = [];
+    public client!: Client;
 
     public tableColumns: string[] = 
     ["ID", "Name", "Quantity", "Subtotal"];
@@ -27,21 +31,34 @@ export class DialogSaleComponent implements OnInit{
     public dataSource!: MatTableDataSource<SaleDetailBill>;
     @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;   
 
+    public clientForm = this.formBuilder.group({
+        'ClientID': [{value: '', disabled: true}],
+        'ClientName': [{value: '', disabled: true}],
+        'ClientCedula': [{value: '', disabled: true}],
+        'ClientEmail': [{value: '', disabled: true}]
+    })
+    public billForm = this.formBuilder.group({
+        'totalIVA': [{value: '0', disabled: true}]
+      })
     constructor(
         public dialogRef: MatDialogRef<DialogSaleComponent>,
         private apiProducts: ApiProductService,
         private apiSaleDetails: ApiSaleDetailsService,
-         @Inject(MAT_DIALOG_DATA) public data: any
+        private apiClients: ApiClientsService,
+        private formBuilder: FormBuilder,
+        @Inject(MAT_DIALOG_DATA) public data: any
     ){
-
     }
     ngOnInit(): void{
         this.getSpecifiedSaleDetails();  
+        this.getSpecifiedClient();
+        this.getTotal();
     }
 
     getSpecifiedSaleDetails(){
         this.apiSaleDetails.getSpecifyDetails(this.data.sale.id).subscribe(response => {
             this.detailsList = response.data;
+            console.log(1);
             this.fillTableandGetSpecifiedProducts(this.detailsList);         
         });
     }
@@ -55,6 +72,25 @@ export class DialogSaleComponent implements OnInit{
                 this.dataSource.paginator = this.paginator;  
             });        
         });
+        console.log(2);
+    }
+
+    getSpecifiedClient(){
+        this.apiClients.getSpecifiedClient(this.data.sale.iduserClient).subscribe(response => {
+            this.clientForm = this.formBuilder.group({
+                'ClientID': [{value: response.data[0].id, disabled: true}],
+                'ClientName': [{value: response.data[0].name, disabled: true}],
+                'ClientCedula': [{value: response.data[0].cedula, disabled: true}],
+                'ClientEmail': [{value: response.data[0].email, disabled: true}]
+              })
+        })
+        console.log(3);
+    }
+
+    getTotal(){
+       this.billForm = this.formBuilder.group({
+        'totalIVA': [{value: this.data.sale.total + " $", disabled: true}]
+      }) 
     }
     close(){
         this.dialogRef.close();

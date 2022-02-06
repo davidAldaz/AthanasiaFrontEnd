@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Response } from '../../models/response'
 import { Sale } from 'src/app/models/sale';
+import { AthURL } from 'src/app/resources/AthURL';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiSaleService {
-  url: string = "http://localhost:5295/api/sale";
+  url: string = AthURL.SALE;
 
   constructor(private _http: HttpClient) { }
 
@@ -22,5 +23,8 @@ export class ApiSaleService {
   }
   get(){
     return this._http.get<Response>(this.url, httpOptions);
+  }
+  getByUserID(user: number){
+    return this._http.get<Response>(this.url + "/" + user, httpOptions);
   }
 }
