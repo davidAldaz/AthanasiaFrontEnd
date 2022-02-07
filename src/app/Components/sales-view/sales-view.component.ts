@@ -21,9 +21,7 @@ export class SalesViewComponent implements OnInit {
   public dataSource!: MatTableDataSource<Sale>;
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;   
 
-  constructor(private apiSales: ApiSaleService,
-    private dialog: MatDialog,
-    ) { }
+  constructor(private apiSales: ApiSaleService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getSales();

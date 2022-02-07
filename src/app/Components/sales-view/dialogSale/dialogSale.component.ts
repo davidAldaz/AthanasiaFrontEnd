@@ -58,7 +58,6 @@ export class DialogSaleComponent implements OnInit{
     getSpecifiedSaleDetails(){
         this.apiSaleDetails.getSpecifyDetails(this.data.sale.id).subscribe(response => {
             this.detailsList = response.data;
-            console.log(1);
             this.fillTableandGetSpecifiedProducts(this.detailsList);         
         });
     }
@@ -72,7 +71,6 @@ export class DialogSaleComponent implements OnInit{
                 this.dataSource.paginator = this.paginator;  
             });        
         });
-        console.log(2);
     }
 
     getSpecifiedClient(){
@@ -84,7 +82,6 @@ export class DialogSaleComponent implements OnInit{
                 'ClientEmail': [{value: response.data[0].email, disabled: true}]
               })
         })
-        console.log(3);
     }
 
     getTotal(){

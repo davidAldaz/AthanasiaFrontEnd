@@ -222,8 +222,6 @@ export class NewSaleComponent implements OnInit {
             saleDetails = [];
             this.updateBillTable();
             this.data.sendSale(newSale);
-            console.log("Kebab");
-            console.log(newSale);
             this.router.navigate(["/sale-completed"]);
           } else{
           }

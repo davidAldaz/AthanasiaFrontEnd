@@ -59,8 +59,6 @@ fillTableandGetSpecifiedProducts(details: Sale){
             this.list.push({ID: detail.IDProduct, Name: product.name, Quantity: detail.Quantity,
             Subtotal: detail.Quantity * product.unitPrice});
             this.total += product.unitPrice * detail.Quantity;
-            console.log(product.name);
-            console.log(this.total);
             this.dataSource = new MatTableDataSource(this.list);
             this.dataSource.paginator = this.paginator;  
             this.getTotal();

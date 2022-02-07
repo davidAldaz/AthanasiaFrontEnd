@@ -38,6 +38,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { DialogSaleConfirmation } from './Components/clientComponents/new-sale/dialogSaleConfirmation/dialogSaleConfirmation.component';
 import { SalesViewComponent } from './Components/sales-view/sales-view.component';
 import { DialogSaleComponent } from './Components/sales-view/dialogSale/dialogSale.component';
+import { DialogProductComponent } from './Components/product-view/dialog-product/dialog-product.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogClientAddEditComponent } from './Components/adminComponents/clients/dialog-client/dialog-client.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,9 @@ import { DialogSaleComponent } from './Components/sales-view/dialogSale/dialogSa
     DialogProductsComponent,
     DialogSaleConfirmation,
     SalesViewComponent,
-    DialogSaleComponent
+    DialogSaleComponent,
+    DialogProductComponent,
+    DialogClientAddEditComponent
   ],
   imports: [
     MatDividerModule,
@@ -77,6 +82,7 @@ import { DialogSaleComponent } from './Components/sales-view/dialogSale/dialogSa
     ReactiveFormsModule,
     MatToolbarModule,
     MatPaginatorModule,
+    MatSnackBarModule
     
   ],
   providers: [
