@@ -23,7 +23,7 @@ export class DialogClientAddEditComponent implements OnInit {
   public title: string = "";
   public btnTitle: string = "";
   public client!: Client;
-  private _editClient: EditClientRequest = {name: "", password: "kebab"};
+  private _editClient: EditClientRequest = {name: ""};
 
   constructor(private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
